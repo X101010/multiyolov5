@@ -20,7 +20,7 @@ def convert_annotation(image_id, paths):
         return center_x / size[0], center_y / size[1], center_w / size[0], center_h / size[1]
 
     final_label_path, final_output_path = paths
-    label_json_url = final_label_path / f'{image_id}_gtFine_polygons.json'
+    label_json_url =f'{final_label_path}' / f'{image_id}_gtFine_polygons.json'
     # 输出到 ：final_output_path / f'{image_id}_leftImg8bit.txt'
 
     load_dict = json.load(open(label_json_url, 'r'))  # 图像的实例
