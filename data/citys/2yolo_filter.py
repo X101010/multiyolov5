@@ -49,7 +49,7 @@ def mkdir(url):
 
 
 if __name__ == '__main__':
-    root_dir = Path(__file__).parent.parent.parent.parent.parent
+    root_dir = Path(__file__).parent.parent.parent.parent
     # image_dir = root_dir / 'leftImg8bit'
     image_dir=root_dir / 'input/cityscapes/Cityspaces/images'
     # label_dir = root_dir / 'gtFine'
