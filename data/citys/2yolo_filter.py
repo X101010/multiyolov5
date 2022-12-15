@@ -99,8 +99,8 @@ def mkdir(url):
 if __name__ == '__main__':
     image_dir ='/kaggle/input/cityscapes/Cityspaces/images'
     label_dir = '/kaggle/input/cityscapes/Cityspaces/gtFine'
-    image_output_root_dir = '../images'
-    label_output_root_dir = '../labels'
+    image_output_root_dir = './images'
+    label_output_root_dir = './labels'
 
 
     label_map = { "car": 0,
@@ -131,10 +131,10 @@ if __name__ == '__main__':
             for img_id in image_ids:
                 convert_annotation(img_id, [_final_label_path, label_output_root_dir_t])  # 转化标签
                 img_file = f'{img_id}_leftImg8bit.png'
-                shutil.copy(os.path.join(_final_img_path,img_file), f'../images/{_t_}/{img_file}')  # 复制移动图片
-                type_files.append(f'../images/{_t_}/{img_id}_leftImg8bit.png\n')
+                shutil.copy(os.path.join(_final_img_path,img_file), f'./images/{_t_}/{img_file}')  # 复制移动图片
+                type_files.append(f'./images/{_t_}/{img_id}_leftImg8bit.png\n')
 
-        with open(f'../yolo_{_t_}.txt', 'w') as f:  # 记录训练样本等的具体内容
+        with open(f'./yolo_{_t_}.txt', 'w') as f:  # 记录训练样本等的具体内容
             f.writelines(type_files)
 
     with open(os.path.join(label_output_root_dir, 'classes.txt'), 'w') as f:  # 写出类别对应
