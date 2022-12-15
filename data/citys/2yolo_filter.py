@@ -20,7 +20,8 @@ def convert_annotation(image_id, paths):
         return center_x / size[0], center_y / size[1], center_w / size[0], center_h / size[1]
 
     final_label_path, final_output_path = paths
-    label_json_url =f'{final_label_path}' / f'{image_id}_gtFine_polygons.json'
+    # label_json_url = final_label_path / f'{image_id}_gtFine_polygons.json'
+    label_json_url = os.path.join(final_label_path,f'{image_id}_gtFine_polygons.json')
     # 输出到 ：final_output_path / f'{image_id}_leftImg8bit.txt'
 
     load_dict = json.load(open(label_json_url, 'r'))  # 图像的实例
@@ -39,7 +40,8 @@ def convert_annotation(image_id, paths):
         # 内容的类别 归一化后的中心点x坐标 归一化后的中心点y坐标 归一化后的目标框宽度w 归一化后的目标况高度h
         output_cache.append(f'{label_map[obj_label]} {x} {y} {w} {h}\n')
 
-    with open(final_output_path / f'{image_id}_leftImg8bit.txt', 'w') as label_f:  # 写出标签文件
+    # with open(final_output_path / f'{image_id}_leftImg8bit.txt', 'w') as label_f:  # 写出标签文件
+    with open(os.path.join(final_output_path , f'{image_id}_leftImg8bit.txt'), 'w') as label_f:
         label_f.writelines(output_cache)
 
 
