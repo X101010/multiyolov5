@@ -48,15 +48,57 @@ def mkdir(url):
         os.makedirs(url)
 
 
+# if __name__ == '__main__':
+#     root_dir = Path(__file__).parent
+#
+#     image_dir = root_dir / 'leftImg8bit'
+#     label_dir = root_dir / 'gtFine'
+#     image_output_root_dir = root_dir /'images'
+#     label_output_root_dir = root_dir / 'labels'
+#
+#
+#     label_map = { "car": 0,
+#                   "traffic sign": 1,
+#                   "rider": 2,
+#                   "person": 3,
+#                   "bicycle": 4,
+#                   "traffic light": 5,
+#                   "bus": 6,
+#                   "motorcycle": 7,
+#                   "truck": 8,
+#                   "train": 9,
+#    }  # 存放所有的类别标签  eg. {'car': 0, 'person': 1}
+#     for _t_ in tqdm(os.listdir(image_dir)):  # _t_ as ['train', 'test' 'val;]
+#         type_files = []  # 存放一类的所有文件，如训练集所有文件
+#         mkdir(image_output_root_dir / _t_), mkdir(label_output_root_dir / _t_)
+#         for cities_name in os.listdir(image_dir / _t_):
+#             _final_img_path = image_dir / _t_ / cities_name  # root_dir / leftImg8bit / test / berlin
+#             _final_label_path = label_dir / _t_ / cities_name  # root_dir / gtfine / test / berlin
+#
+#             # berlin_000000_000019_leftImg8bit.png -> berlin_000000_000019_gtFine_polygons.json
+#             image_ids = list(map(lambda s: re.sub(r'_leftImg8bit\.png', '', s), os.listdir(_final_img_path)))
+#             # print(names[:0])  -> berlin_000000_000019
+#
+#             for img_id in image_ids:
+#                 convert_annotation(img_id, [_final_label_path, label_output_root_dir / _t_])  # 转化标签
+#                 img_file = f'{img_id}_leftImg8bit.png'
+#                 shutil.copy(_final_img_path / img_file, f'images/{_t_}/{img_file}')  # 复制移动图片
+#                 type_files.append(f'images/{_t_}/{img_id}_leftImg8bit.png\n')
+#
+#         with open(root_dir / f'yolo_{_t_}.txt', 'w') as f:  # 记录训练样本等的具体内容
+#             f.writelines(type_files)
+#
+#     with open(label_output_root_dir / 'classes.txt', 'w') as f:  # 写出类别对应
+#         for k, v in label_map.items():
+#             f.write(f'{k}\n')
+#     print([k for k in label_map.keys()], len([k for k in label_map.keys()]))
+
+# kaggle
 if __name__ == '__main__':
-    root_dir = Path(__file__).parent
-    tmp_dir=Path(__file__).parent.parent.parent.parent
-    # image_dir = root_dir / 'leftImg8bit'
-    image_dir=tmp_dir / 'input'/'cityscapes'/'Cityspaces'/'images'
-    # label_dir = root_dir / 'gtFine'
-    label_dir=tmp_dir / 'input'/'cityscapes'/'Cityspaces'/'gtFine'
-    image_output_root_dir = root_dir /'images'
-    label_output_root_dir = root_dir / 'labels'
+    image_dir ='/kaggle/input/cityscapes/Cityspaces/images'
+    label_dir = '/kaggle/input/cityscapes/Cityspaces/gtFine'
+    image_output_root_dir = '../images'
+    label_output_root_dir = '../labels'
 
 
     label_map = { "car": 0,
@@ -72,25 +114,28 @@ if __name__ == '__main__':
    }  # 存放所有的类别标签  eg. {'car': 0, 'person': 1}
     for _t_ in tqdm(os.listdir(image_dir)):  # _t_ as ['train', 'test' 'val;]
         type_files = []  # 存放一类的所有文件，如训练集所有文件
-        mkdir(image_output_root_dir / _t_), mkdir(label_output_root_dir / _t_)
-        for cities_name in os.listdir(image_dir / _t_):
-            _final_img_path = image_dir / _t_ / cities_name  # root_dir / leftImg8bit / test / berlin
-            _final_label_path = label_dir / _t_ / cities_name  # root_dir / gtfine / test / berlin
+        image_output_root_dir_t=os.path.join(image_output_root_dir,_t_)
+        label_output_root_dir_t=os.path.join(label_output_root_dir,_t_)
+        mkdir(image_output_root_dir_t), mkdir(label_output_root_dir_t)
+        image_dir_t=os.path.join(image_dir,_t_)
+        for cities_name in os.listdir(image_dir_t):
+            _final_img_path = os.path.join(image_dir_t,cities_name)  # root_dir / leftImg8bit / test / berlin
+            _final_label_path = os.path.join(os.path.join(label_dir,_t_),cities_name) # root_dir / gtfine / test / berlin
 
             # berlin_000000_000019_leftImg8bit.png -> berlin_000000_000019_gtFine_polygons.json
             image_ids = list(map(lambda s: re.sub(r'_leftImg8bit\.png', '', s), os.listdir(_final_img_path)))
             # print(names[:0])  -> berlin_000000_000019
 
             for img_id in image_ids:
-                convert_annotation(img_id, [_final_label_path, label_output_root_dir / _t_])  # 转化标签
+                convert_annotation(img_id, [_final_label_path, label_output_root_dir_t])  # 转化标签
                 img_file = f'{img_id}_leftImg8bit.png'
-                shutil.copy(_final_img_path / img_file, f'images/{_t_}/{img_file}')  # 复制移动图片
+                shutil.copy(os.path.join(_final_img_path,img_file), f'images/{_t_}/{img_file}')  # 复制移动图片
                 type_files.append(f'images/{_t_}/{img_id}_leftImg8bit.png\n')
 
-        with open(root_dir / f'yolo_{_t_}.txt', 'w') as f:  # 记录训练样本等的具体内容
+        with open(f'../yolo_{_t_}.txt', 'w') as f:  # 记录训练样本等的具体内容
             f.writelines(type_files)
 
-    with open(label_output_root_dir / 'classes.txt', 'w') as f:  # 写出类别对应
+    with open(os.path.join(label_output_root_dir, 'classes.txt'), 'w') as f:  # 写出类别对应
         for k, v in label_map.items():
             f.write(f'{k}\n')
     print([k for k in label_map.keys()], len([k for k in label_map.keys()]))
