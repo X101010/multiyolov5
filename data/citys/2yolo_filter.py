@@ -52,9 +52,9 @@ if __name__ == '__main__':
     root_dir = Path(__file__).parent
     tmp_dir=Path(__file__).parent.parent.parent.parent
     # image_dir = root_dir / 'leftImg8bit'
-    image_dir=tmp_dir / 'input/cityscapes/Cityspaces/images'
+    image_dir=tmp_dir / 'input'/'cityscapes'/'Cityspaces'/'images'
     # label_dir = root_dir / 'gtFine'
-    label_dir=tmp_dir / 'input/cityscapes/Cityspaces/gtFine'
+    label_dir=tmp_dir / 'input'/'cityscapes'/'Cityspaces'/'gtFine'
     image_output_root_dir = root_dir /'images'
     label_output_root_dir = root_dir / 'labels'
 
