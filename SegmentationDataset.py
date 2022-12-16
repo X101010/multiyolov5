@@ -458,7 +458,8 @@ def get_custom_pairs(folder, split='train'):
     return img_paths, mask_paths
 
 
-def get_citys_loader(root=os.path.expanduser('data/citys/'), split="train", mode="train",  # 获取训练和验证用的dataloader
+# def get_citys_loader(root=os.path.expanduser('data/citys/'), split="train", mode="train",  # 获取训练和验证用的dataloader
+def get_citys_loader(root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split="train", mode="train",
                      base_size=1024, crop_size=(1024, 512),
                      batch_size=32, workers=4, pin=True):
     if mode == "train":
@@ -483,7 +484,7 @@ def get_citys_loader(root=os.path.expanduser('data/citys/'), split="train", mode
     return loader
 
 
-def get_citysbdd_loader(root=os.path.expanduser('data/citys/'), split="train", mode="train",  # 获取训练和验证用的dataloader
+def get_citysbdd_loader(root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split="train", mode="train",  # 获取训练和验证用的dataloader
                      base_size=1024, crop_size=(1024, 512),
                      batch_size=32, workers=4, pin=True):
     if mode == "train":
@@ -509,7 +510,7 @@ def get_citysbdd_loader(root=os.path.expanduser('data/citys/'), split="train", m
 
 
 # 默认custom_loader　jitter和crop采用更保守的方案
-def get_custom_loader(root=os.path.expanduser('data/citys/'), split="train", mode="train",  # 获取训练和验证用的dataloader
+def get_custom_loader(root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split="train", mode="train",  # 获取训练和验证用的dataloader
                      base_size=1024,  # crop_size=(1024, 1024), 注意 custom的corpsize=basesize
                      batch_size=32, workers=4, pin=True):
     if mode == "train":
