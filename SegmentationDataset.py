@@ -159,7 +159,8 @@ class CitySegmentation(BaseDataset):  # base_size 2048 crop_size 768
 
     # mode训练时候验证用val, 测试验证集指标时候用testval一般会更高且更接近真实水平
     # def __init__(self, root=os.path.expanduser('../data/citys/'), split='train',
-    def __init__(self, root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split='train',
+    # def __init__(self, root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split='train',
+    def __init__(self, root='/kaggle/input/cityscapes/Cityspaces/', split='train',
                  mode=None, transform=None, target_transform=None, **kwargs):
         super(CitySegmentation, self).__init__(
             root, split, mode, transform, target_transform, **kwargs)
