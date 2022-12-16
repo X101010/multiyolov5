@@ -158,7 +158,8 @@ class CitySegmentation(BaseDataset):  # base_size 2048 crop_size 768
     NUM_CLASS = 19
 
     # mode训练时候验证用val, 测试验证集指标时候用testval一般会更高且更接近真实水平
-    def __init__(self, root=os.path.expanduser('../data/citys/'), split='train',
+    # def __init__(self, root=os.path.expanduser('../data/citys/'), split='train',
+    def __init__(self, root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split='train',
                  mode=None, transform=None, target_transform=None, **kwargs):
         super(CitySegmentation, self).__init__(
             root, split, mode, transform, target_transform, **kwargs)
@@ -235,7 +236,8 @@ class CitySegmentation(BaseDataset):  # base_size 2048 crop_size 768
 # 混合Cityscapes与BDD100k用这个, 把bdd当做Cityscapes的一个城市, 用jpg和png区分处理, 没写单独BDD的
 class CityBddSegmentation(BaseDataset):  # base_size 2048 crop_size 768
     # mode训练时候验证用testval, 测试验证集指标时候也用testval, val倍废弃
-    def __init__(self, root=os.path.expanduser('../data/citys/'), split='train',
+    # def __init__(self, root=os.path.expanduser('../data/citys/'), split='train',
+    def __init__(self, root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split='train',
                  mode=None, transform=None, target_transform=None, NUM_CLASS=19, **kwargs):
         super(CityBddSegmentation, self).__init__(
             root, split, mode, transform, target_transform, **kwargs)
@@ -326,7 +328,8 @@ class CityBddSegmentation(BaseDataset):  # base_size 2048 crop_size 768
 
 class CustomSegmentation(BaseDataset):  # base_size 2048 crop_size 768
     # mode训练时候验证用testval, 测试验证集指标时候也用testval, val倍废弃
-    def __init__(self, root=os.path.expanduser('../data/citys/'), split='train',
+    # def __init__(self, root=os.path.expanduser('../data/citys/'), split='train',
+    def __init__(self, root=os.path.expanduser('/kaggle/input/cityscapes/Cityspaces/'), split='train',
                  mode=None, transform=None, target_transform=None, **kwargs):
         super(CustomSegmentation, self).__init__(
             root, split, mode, transform, target_transform, **kwargs)
