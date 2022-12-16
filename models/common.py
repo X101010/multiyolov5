@@ -1,6 +1,7 @@
 # YOLOv5 common modules
 
 import math
+import warnings
 from copy import copy
 from pathlib import Path
 
@@ -160,6 +161,21 @@ class C3TR(C3):
         self.m = TransformerBlock(c_, c_, 4, n)
 
 
+class SPPF(nn.Module):
+    def __init__(self, c1, c2, k=5):
+        super().__init__()
+        c_ = c1 // 2
+        self.cv1 = Conv(c1, c_, 1, 1)
+        self.cv2 = Conv(c_ * 4, c2, 1, 1)
+        self.m = nn.MaxPool2d(kernel_size=k, stride=1, padding=k // 2)
+
+    def forward(self, x):
+        x = self.cv1(x)
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
+            y1 = self.m(x)
+            y2 = self.m(y1)
+            return self.cv2(torch.cat([x, y1, y2, self.m(y2)], 1))
 class SPP(nn.Module):
     # Spatial pyramid pooling layer used in YOLOv3-SPP # ModuleLis容器多分支实现SPP
     def __init__(self, c1, c2, k=(5, 9, 13)):
